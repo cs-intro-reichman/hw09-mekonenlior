@@ -39,7 +39,8 @@ public class List {
     public void addFirst(char chr) {
         Node newNode = new Node(new CharData(chr)); // Creates a new node
         newNode.next = first; // Make it point to the current first node
-        first = newNode; // Update the 'first' reference to point to the new node, making it the first node in the list
+        first = newNode; // Update the 'first' reference to point to the new node, making it the first
+                         // node in the list
         size++; // Increasing the size of the list
     }
 

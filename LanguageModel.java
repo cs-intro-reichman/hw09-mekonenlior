@@ -99,9 +99,11 @@ public class LanguageModel {
         // Iterates the list, reading the cumulative probabilities as we go along.
         while ((probs.listIterator(i).current.cp.cp < r)) {
             i++;
-        } 
-        /* Stops at the element whose cumulative probability is greater than
-        r, and returns the character of this element */
+        }
+        /*
+         * Stops at the element whose cumulative probability is greater than
+         * r, and returns the character of this element
+         */
         return probs.get(i).chr;
     }
 
@@ -120,26 +122,37 @@ public class LanguageModel {
         if (initialText.length() < windowLength) {
             return initialText;
         }
-         /* The text generation process starts by setting the initial window to the last windowLength
-           characters of the initial text */
-           String window = initialText.substring(initialText.length() - windowLength);
-           String generatedText = window;
-           /* The text generation process stops when the length of the generated text equals the desired
-              text length, as specified by the user.*/
-           int numberOfLetters = textLength + windowLength;
-           while ((generatedText.length() < numberOfLetters)) {   
-               List currentList = CharDataMap.get(window);
-               /* In any iteration, if the current window is not found in the map, we stop the process and
-                  return the text that was generated so far. */
-               if (currentList == null) {
-                   break; // Exits the loop.
-               }
-               generatedText += getRandomChar(currentList);
-               /* In each iteration, the window is set to the last windowLength
-               characters of the generated text. */ 
-               window = generatedText.substring(generatedText.length() - windowLength);
-           }
-           return generatedText; // Returns the generated text
+        /*
+         * The text generation process starts by setting the initial window to the last
+         * windowLength
+         * characters of the initial text
+         */
+        String window = initialText.substring(initialText.length() - windowLength);
+        String generatedText = window;
+        /*
+         * The text generation process stops when the length of the generated text
+         * equals the desired
+         * text length, as specified by the user.
+         */
+        int numberOfLetters = textLength + windowLength;
+        while ((generatedText.length() < numberOfLetters)) {
+            List currentList = CharDataMap.get(window);
+            /*
+             * In any iteration, if the current window is not found in the map, we stop the
+             * process and
+             * return the text that was generated so far.
+             */
+            if (currentList == null) {
+                break; // Exits the loop.
+            }
+            generatedText += getRandomChar(currentList);
+            /*
+             * In each iteration, the window is set to the last windowLength
+             * characters of the generated text.
+             */
+            window = generatedText.substring(generatedText.length() - windowLength);
+        }
+        return generatedText; // Returns the generated text
     }
 
     /** Returns a string representing the map of this language model. */
@@ -161,7 +174,7 @@ public class LanguageModel {
         // Create the LanguageModel object
         LanguageModel lm;
         if (randomGeneration) {
-            lm = new LanguageModel(windowLength); 
+            lm = new LanguageModel(windowLength);
         } else {
             lm = new LanguageModel(windowLength, 20);
         }
